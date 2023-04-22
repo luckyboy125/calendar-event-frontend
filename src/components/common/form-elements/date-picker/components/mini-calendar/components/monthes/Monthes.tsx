@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { IModes, IMonth, TMonth } from "types/date";
-import Month from "../month/Month";
+import React from 'react';
+import { IModes, IMonth, TMonth } from 'types/date';
+import Month from '../month/Month';
 
 import styles from './monthes.module.scss';
 
@@ -12,13 +12,13 @@ interface MonthesProps {
   setMode: (mode: IModes) => void;
 }
 
-const Monthes: FC<MonthesProps> = ({
+const Monthes = ({
   monthesNames,
   selectedYear,
   selectedMonth,
   setSelectedMonthByIndex,
-  setMode
-}) => {
+  setMode,
+}: MonthesProps) => {
   return (
     <div className={styles.monthes__container}>
       {monthesNames.map((monthesName) => (

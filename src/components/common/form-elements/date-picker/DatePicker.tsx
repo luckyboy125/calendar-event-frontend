@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCalendar } from 'hooks/useCalendar';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { formatDate } from 'utils/date';
@@ -15,22 +15,24 @@ interface DatePickerProps {
   error?: string;
 }
 
-const DatePicker: FC<DatePickerProps> = ({
+const DatePicker = ({
   selectDate,
   selectedDate,
   error,
-  locale = 'default'
-}) => {
+  locale = 'default',
+}: DatePickerProps) => {
   const { functions, state } = useCalendar({
     locale,
     selectedDate,
-    defaultMode: 'month'
+    defaultMode: 'month',
   });
-  const [dateValue, setDateValue] = useState(formatDate(selectedDate, 'DDDD, DD MMMM YYYY', locale));  
+  const [dateValue, setDateValue] = useState(
+    formatDate(selectedDate, 'DDDD, DD MMMM YYYY', locale)
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [stylesPicker, setStylesPicker] = useState({ width: 200 });
-  
+
   const miniCalendarRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
 
@@ -39,8 +41,8 @@ const DatePicker: FC<DatePickerProps> = ({
     setIsOpen(false);
     functions.setMode('month');
     functions.onChangeState(selectedDate);
-  }
-  
+  };
+
   const changeAllStates = (date: Date) => {
     functions.onChangeState(date);
     if (!isTyping) {
@@ -50,28 +52,27 @@ const DatePicker: FC<DatePickerProps> = ({
         getTextWidthFromInput(formatedDate, inputRef.current)
       );
     }
-  }
+  };
 
   const onSelectDay = (date: Date) => {
     functions.onChangeState(date);
     selectDate(date);
     closeMiniCalendar();
-  }
+  };
 
-  const handleChangeWidthPicker = (width: number) => setStylesPicker({ width: width })
-  
+  const handleChangeWidthPicker = (width: number) =>
+    setStylesPicker({ width: width });
+
   useClickOutside(miniCalendarRef, closeMiniCalendar);
-  
+
   useEffect(() => {
-    handleChangeWidthPicker(
-      getTextWidthFromInput(dateValue, inputRef.current)
-    );
+    handleChangeWidthPicker(getTextWidthFromInput(dateValue, inputRef.current));
   }, []);
-    
+
   useEffect(() => {
     changeAllStates(selectedDate);
   }, [selectedDate]);
-  
+
   return (
     <div
       className={styles.date__picker__container}
@@ -113,6 +114,6 @@ const DatePicker: FC<DatePickerProps> = ({
       )}
     </div>
   );
-}
+};
 
 export default DatePicker;

@@ -1,8 +1,12 @@
 import { useTypedSelector } from 'hooks/index';
 import { useThrottle } from 'hooks/useThrottle';
-import React, { FC, WheelEvent } from 'react';
+import React from 'react';
 import { IDirections, IMonthDay, IWeekDay, TMonth } from 'types/date';
-import { getEventsInterval, getLongEvents, getShortEvents } from 'utils/helpers';
+import {
+  getEventsInterval,
+  getLongEvents,
+  getShortEvents,
+} from 'utils/helpers';
 import Month from './components/month/Month';
 import Navigation from './components/navigation/Navigation';
 
@@ -15,31 +19,28 @@ interface IMonthCalendarProps {
   onClickArrow: (direction: IDirections) => void;
 }
 
-const MonthCalendar: FC<IMonthCalendarProps> = ({
+const MonthCalendar = ({
   weekDaysNames,
   calendarDaysOfMonth,
   selectedMonth,
-  onClickArrow
-}) => {
+  onClickArrow,
+}: IMonthCalendarProps) => {
   const { events } = useTypedSelector(({ events }) => events);
 
   const monthEvents = getEventsInterval(calendarDaysOfMonth, events);
   const shortEvents = getShortEvents(monthEvents);
   const longEvents = getLongEvents(monthEvents);
-  
-  const changeMonth = useThrottle((e: WheelEvent<HTMLElement>) => {
-      const { deltaY } = e;
-      const direction = deltaY > 0 ? 'right' : 'left';
-      onClickArrow(direction);
+
+  const changeMonth = useThrottle((e: any) => {
+    const { deltaY } = e;
+    const direction = deltaY > 0 ? 'right' : 'left';
+    onClickArrow(direction);
   }, 300);
-  
+
   return (
-    <div
-      className={styles.calendar__container} 
-      onWheel={changeMonth}
-    >
+    <div className={styles.calendar__container} onWheel={changeMonth}>
       <Navigation weekDaysNames={weekDaysNames} />
-      <div className="calendar__body">
+      <div className='calendar__body'>
         <div className={styles.calendar__content}>
           <Month
             calendarDaysOfMonth={calendarDaysOfMonth}
@@ -51,6 +52,6 @@ const MonthCalendar: FC<IMonthCalendarProps> = ({
       </div>
     </div>
   );
-}
+};
 
 export default MonthCalendar;

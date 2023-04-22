@@ -1,15 +1,19 @@
-import React, { FC } from "react";
-import { useModal } from "hooks/useModal";
-import { ModalCreateEvent, ModalDayInfo, ModalEditEvent } from "components/common/modals";
+import React from 'react';
+import { useModal } from 'hooks/useModal';
+import {
+  ModalCreateEvent,
+  ModalDayInfo,
+  ModalEditEvent,
+} from 'components/common/modals';
 
-export const ModalProvider: FC = ({ children }) => {
+export const ModalProvider = ({ children }) => {
   const {
     isOpenModalCreateEvent,
     isOpenModalEditEvent,
     isOpenModalDayInfoEvents,
     selectedDate,
     modalEditEventOptions,
-    modalCreateEventOptions
+    modalCreateEventOptions,
   } = useModal();
 
   return (
@@ -17,12 +21,8 @@ export const ModalProvider: FC = ({ children }) => {
       {isOpenModalCreateEvent && (
         <ModalCreateEvent {...modalCreateEventOptions} />
       )}
-      {isOpenModalEditEvent && (
-        <ModalEditEvent {...modalEditEventOptions} />
-      )}
-      {isOpenModalDayInfoEvents && (
-        <ModalDayInfo selectedDate={selectedDate} />
-      )}
+      {isOpenModalEditEvent && <ModalEditEvent {...modalEditEventOptions} />}
+      {isOpenModalDayInfoEvents && <ModalDayInfo selectedDate={selectedDate} />}
       {children}
     </>
   );

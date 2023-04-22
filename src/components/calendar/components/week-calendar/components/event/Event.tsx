@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react';
+import React from 'react';
 import { usePopup } from 'hooks/index';
 
 import styles from './event.module.scss';
@@ -14,7 +14,7 @@ interface IEventProps {
   left: string;
 }
 
-const Event: FC<IEventProps> = ({
+const Event = ({
   height,
   top,
   title,
@@ -22,8 +22,8 @@ const Event: FC<IEventProps> = ({
   color,
   id,
   width,
-  left
-}) => {
+  left,
+}: IEventProps) => {
   const { openPopup } = usePopup();
 
   const eventStyle = {
@@ -31,21 +31,17 @@ const Event: FC<IEventProps> = ({
     top,
     background: color,
     width,
-    left
+    left,
   };
 
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
+  const handleClick = (e: any) => {
     e.stopPropagation();
     const { clientX, clientY } = e;
     openPopup({ x: clientX, y: clientY, eventId: id });
-  }
+  };
 
   return (
-    <div
-      style={eventStyle}
-      className={styles.event}
-      onClick={handleClick}
-    >
+    <div style={eventStyle} className={styles.event} onClick={handleClick}>
       <div className={styles.event__title}>{title}</div>
       <div className={styles.event__time}>{time}</div>
     </div>

@@ -1,6 +1,6 @@
-import cn from "classnames";
-import React, { FC } from "react";
-import { IModes, IMonth, TMonth } from "types/date";
+import cn from 'classnames';
+import React from 'react';
+import { IModes, IMonth, TMonth } from 'types/date';
 
 import styles from './month.module.scss';
 
@@ -12,25 +12,25 @@ interface MonthProps {
   setMode: (mode: IModes) => void;
 }
 
-const Month: FC<MonthProps> = ({
+const Month = ({
   monthesName,
   selectedYear,
   selectedMonth,
   setSelectedMonthByIndex,
-  setMode
-}) => {
+  setMode,
+}: MonthProps) => {
   const d = new Date();
   const isCurrentMonth =
-    d.getMonth() === monthesName.monthIndex &&
-    selectedYear === d.getFullYear();
+    d.getMonth() === monthesName.monthIndex && selectedYear === d.getFullYear();
 
-  const isSelectedMonth = monthesName.monthIndex === selectedMonth.monthIndex &&
+  const isSelectedMonth =
+    monthesName.monthIndex === selectedMonth.monthIndex &&
     selectedYear === monthesName.date.getFullYear();
-    
+
   const handleSelectMonth = () => {
     setSelectedMonthByIndex(monthesName.monthIndex);
     setMode('month');
-  }
+  };
 
   return (
     <div
@@ -39,7 +39,7 @@ const Month: FC<MonthProps> = ({
       onClick={handleSelectMonth}
       className={cn(styles.month, {
         [styles.month_selected]: isSelectedMonth,
-        [styles.month_today]: isCurrentMonth
+        [styles.month_today]: isCurrentMonth,
       })}
     >
       {monthesName.monthShort}

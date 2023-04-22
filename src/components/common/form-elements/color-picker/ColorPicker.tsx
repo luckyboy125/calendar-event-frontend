@@ -1,20 +1,17 @@
-import React, { FC, useRef, useState } from "react";
-import { colors } from "./colors";
-import { useClickOutside } from "hooks/index";
-import ColorOption from "./components/color-option/ColorOption";
-import cn from "classnames";
+import React, { useRef, useState } from 'react';
+import { colors } from './colors';
+import { useClickOutside } from 'hooks/index';
+import ColorOption from './components/color-option/ColorOption';
+import cn from 'classnames';
 
 import styles from './color-picker.module.scss';
 
 interface IColorPickerProps {
   selectedColor: string;
-  onChangeColor: (color: string) => void
+  onChangeColor: (color: string) => void;
 }
 
-const ColorPicker: FC<IColorPickerProps> = ({
-  selectedColor,
-  onChangeColor
-}) => {
+const ColorPicker = ({ selectedColor, onChangeColor }: IColorPickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +28,12 @@ const ColorPicker: FC<IColorPickerProps> = ({
           className={styles.color__picker__selected__color}
           style={{ background: selectedColor }}
         />
-        <i className={cn("fas fa-chevron-down", styles.color__picker__icon__down)}></i>
+        <i
+          className={cn(
+            'fas fa-chevron-down',
+            styles.color__picker__icon__down
+          )}
+        ></i>
       </div>
       {isOpen && (
         <ul className={styles.color__picker__list}>
@@ -47,6 +49,6 @@ const ColorPicker: FC<IColorPickerProps> = ({
       )}
     </div>
   );
-}
+};
 
 export default ColorPicker;

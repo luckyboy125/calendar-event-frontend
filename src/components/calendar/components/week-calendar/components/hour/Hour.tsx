@@ -1,9 +1,12 @@
-import React, { FC, MouseEvent, useRef, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { checkIsToday, shmoment } from 'utils/date';
 import Event from '../event/Event';
 import TimeLine from '../time-line/TimeLine';
 import { IEvent } from 'types/event';
-import { getStyledByPositionXForEvent, getStyledByPostionYForEvent } from 'utils/helpers';
+import {
+  getStyledByPositionXForEvent,
+  getStyledByPostionYForEvent,
+} from 'utils/helpers';
 import { useModal } from 'hooks/useModal';
 
 import styles from './hour.module.scss';
@@ -15,26 +18,24 @@ interface IHourProps {
   dayEvents: IEvent[];
 }
 
-const Hour: FC<IHourProps> = ({
-  dataHour,
-  hourEvents,
-  dateDay,
-  dayEvents
-}) => {
+const Hour = ({ dataHour, hourEvents, dateDay, dayEvents }: IHourProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const timeSlotRef = useRef<HTMLDivElement>();
   const isCurrentHour = dataHour === currentDate.getHours();
   const { openModalCreate } = useModal();
 
-  const handleCreateEvent = (e: MouseEvent<HTMLDivElement>) => {
+  const handleCreateEvent = (e: any) => {
     const { top } = timeSlotRef.current.getBoundingClientRect();
     const offsetY = e.pageY - top;
-    
+
     const mins = Math.floor(offsetY / 30) * 30;
-    const selectedDate = shmoment(dateDay).add('hours', dataHour).add('minutes', mins).result();
-    
-    openModalCreate({ selectedDate })
-  }
+    const selectedDate = shmoment(dateDay)
+      .add('hours', dataHour)
+      .add('minutes', mins)
+      .result();
+
+    openModalCreate({ selectedDate });
+  };
 
   return (
     <div
@@ -43,7 +44,7 @@ const Hour: FC<IHourProps> = ({
       onClick={handleCreateEvent}
       ref={timeSlotRef}
     >
-      {(checkIsToday(dateDay) && isCurrentHour) && (
+      {checkIsToday(dateDay) && isCurrentHour && (
         <TimeLine currentDate={currentDate} setCurrentDate={setCurrentDate} />
       )}
 
@@ -51,9 +52,12 @@ const Hour: FC<IHourProps> = ({
       {hourEvents.map((event) => {
         const { id, title, color } = event;
 
-        const { eventHeight, offsetTop, time } = getStyledByPostionYForEvent(event, dateDay);
+        const { eventHeight, offsetTop, time } = getStyledByPostionYForEvent(
+          event,
+          dateDay
+        );
         const { left, width } = getStyledByPositionXForEvent(dayEvents, event);
-        
+
         return (
           <Event
             key={id}

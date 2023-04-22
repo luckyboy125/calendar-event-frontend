@@ -1,23 +1,23 @@
-import React, { FC, useRef } from "react";
-import { createDate } from "utils/date";
-import { getEventsInterval, getLongEvents, getShortEvents, getSortedEvents, getStyledForLongEvent } from "utils/helpers";
+import React, { useRef } from 'react';
+import { createDate } from 'utils/date';
 import {
-  useTypedSelector,
-  useClickOutside,
-  useModal
-} from "hooks/index";
-import LongEvent from "components/common/long-event/LongEvent";
-import ShortEvent from "components/common/short-event/ShortEvent";
+  getEventsInterval,
+  getLongEvents,
+  getShortEvents,
+  getSortedEvents,
+  getStyledForLongEvent,
+} from 'utils/helpers';
+import { useTypedSelector, useClickOutside, useModal } from 'hooks/index';
+import LongEvent from 'components/common/long-event/LongEvent';
+import ShortEvent from 'components/common/short-event/ShortEvent';
 
-import styles from "./modal-day-info.module.scss";
+import styles from './modal-day-info.module.scss';
 
 interface IModalDayInfoProps {
   selectedDate: Date;
 }
 
-const ModalDayInfo: FC<IModalDayInfoProps> = ({
-  selectedDate
-}) => {
+const ModalDayInfo = ({ selectedDate }: IModalDayInfoProps) => {
   const { closeModalDayInfo } = useModal();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -34,40 +34,43 @@ const ModalDayInfo: FC<IModalDayInfoProps> = ({
   const daySortedShortEvents = getSortedEvents(dayShortEvents);
 
   const modalContentHeight = dayEvents.length * 24;
-  const modalContentStyle = { height: modalContentHeight > 0 ? modalContentHeight : 'auto' };
+  const modalContentStyle = {
+    height: modalContentHeight > 0 ? modalContentHeight : 'auto',
+  };
 
   const handleCloseModal = () => closeModalDayInfo();
-  
+
   useClickOutside(modalRef, handleCloseModal);
 
   return (
-    <div className="overlay">
-      <div
-        className={styles.modal}
-        ref={modalRef}
-      >
-        <button
-          className={styles.modal__close}
-          onClick={handleCloseModal}
-        >
-          <i className="fas fa-times"></i>
+    <div className='overlay'>
+      <div className={styles.modal} ref={modalRef}>
+        <button className={styles.modal__close} onClick={handleCloseModal}>
+          <i className='fas fa-times'></i>
         </button>
         <div className={styles.modal__label}>
-          <div className={styles.modal__label__name}>{selectedDay.dayShort}</div>
-          <div className={styles.modal__label__number}>{selectedDay.dayNumber}</div>
+          <div className={styles.modal__label__name}>
+            {selectedDay.dayShort}
+          </div>
+          <div className={styles.modal__label__number}>
+            {selectedDay.dayNumber}
+          </div>
         </div>
 
-        <div
-          className={styles.modal__content}
-          style={modalContentStyle}
-        >
+        <div className={styles.modal__content} style={modalContentStyle}>
           {dayEvents.length === 0 && (
-            <div className={styles.modal__empty__events}>There are no events scheduled on this day.</div>
+            <div className={styles.modal__empty__events}>
+              There are no events scheduled on this day.
+            </div>
           )}
           {daySortedLongEvents.map((event, indx) => {
-            const { isMovingToNext, isMovingFromPrev } = getStyledForLongEvent([selectedDay], selectedDay, event);
+            const { isMovingToNext, isMovingFromPrev } = getStyledForLongEvent(
+              [selectedDay],
+              selectedDay,
+              event
+            );
             const top = indx * 24;
-            
+
             return (
               <LongEvent
                 key={event.id}
@@ -79,23 +82,17 @@ const ModalDayInfo: FC<IModalDayInfoProps> = ({
                 isMovingToNext={isMovingToNext}
                 isMovingFromPrev={isMovingFromPrev}
               />
-            )
+            );
           })}
           {daySortedShortEvents.map((event, indx) => {
             const top = (daySortedLongEvents.length + indx) * 24;
 
-            return (
-              <ShortEvent
-                key={event.id}
-                event={event}
-                top={top}
-              />
-            )
+            return <ShortEvent key={event.id} event={event} top={top} />;
           })}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ModalDayInfo;

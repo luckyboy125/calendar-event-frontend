@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { IDirections, IModes, IMonth, TMonth } from "types/date";
+import React from 'react';
+import { IDirections, IModes, IMonth, TMonth } from 'types/date';
 
 import styles from './header.module.scss';
 
@@ -13,15 +13,15 @@ interface HeaderProps {
   setMode: (mode: IModes) => void;
 }
 
-const Header: FC<HeaderProps> = ({
+const Header = ({
   monthesNames,
   selectedYear,
   selectedMonth,
   selectedYearsInterval,
   mode,
   onClickArrow,
-  setMode
-}) => {
+  setMode,
+}: HeaderProps) => {
   const changeToPrev = () => onClickArrow('left');
   const changeToNext = () => onClickArrow('right');
   const changeModeToMonthes = () => setMode('monthes');
@@ -29,11 +29,8 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <div className={styles.header}>
-      <div
-        className={styles.header__arrow__icon}
-        onClick={changeToPrev}
-      >
-        <i className="fas fa-chevron-left"></i>
+      <div className={styles.header__arrow__icon} onClick={changeToPrev}>
+        <i className='fas fa-chevron-left'></i>
       </div>
 
       {mode === 'month' && (
@@ -43,9 +40,7 @@ const Header: FC<HeaderProps> = ({
       )}
 
       {mode === 'monthes' && (
-        <div onClick={changeModeToYears}>
-          {selectedYear}
-        </div>
+        <div onClick={changeModeToYears}>{selectedYear}</div>
       )}
 
       {mode === 'years' && (
@@ -55,14 +50,11 @@ const Header: FC<HeaderProps> = ({
         </div>
       )}
 
-      <div
-        className={styles.header__arrow__icon}
-        onClick={changeToNext}
-      >  
-        <i className="fas fa-chevron-right"></i>
+      <div className={styles.header__arrow__icon} onClick={changeToNext}>
+        <i className='fas fa-chevron-right'></i>
       </div>
     </div>
   );
-}
+};
 
 export default Header;

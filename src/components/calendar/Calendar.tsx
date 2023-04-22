@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useCalendar } from 'hooks/useCalendar';
 import WeekCalendar from './components/week-calendar/WeekCalendar';
 import Header from 'components/common/header/Header';
@@ -7,10 +7,9 @@ import MonthCalendar from './components/month-calendar/MonthCalendar';
 
 import './calendar.scss';
 
-interface ICalendarProps {
-}
+interface ICalendarProps {}
 
-const Calendar: FC<ICalendarProps> = ({  }) => {
+const Calendar = ({}: ICalendarProps) => {
   const { state, functions } = useCalendar({ selectedDate: new Date() });
 
   return (
@@ -22,7 +21,7 @@ const Calendar: FC<ICalendarProps> = ({  }) => {
         selectedOption={state.mode}
         selectedDay={state.selectedDay}
       />
-      <section className="calendar">
+      <section className='calendar'>
         {state.mode === 'year' && (
           <YearCalendar
             selectedDay={state.selectedDay}
@@ -33,7 +32,7 @@ const Calendar: FC<ICalendarProps> = ({  }) => {
             onChangeState={functions.onChangeState}
           />
         )}
-        
+
         {state.mode === 'month' && (
           <MonthCalendar
             weekDaysNames={state.weekDaysNames}
@@ -42,17 +41,16 @@ const Calendar: FC<ICalendarProps> = ({  }) => {
             onClickArrow={functions.onClickArrow}
           />
         )}
-        
+
         {state.mode === 'week' && (
           <WeekCalendar
             weekDays={state.weekDays}
             weekDaysNames={state.weekDaysNames}
           />
         )}
-        
       </section>
     </>
   );
-}
+};
 
 export default Calendar;

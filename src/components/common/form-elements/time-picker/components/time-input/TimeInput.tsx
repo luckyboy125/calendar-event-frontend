@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useRef } from "react";
-import TextField from "components/common/form-elements/text-field/TextField";
-import { IFieldProps } from "components/common/form-elements/types";
-import { useThrottle } from "hooks/index";
-import { getOptionIndx, parseTimeString } from "../../helpers";
+import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
+import TextField from 'components/common/form-elements/text-field/TextField';
+import { IFieldProps } from 'components/common/form-elements/types';
+import { useThrottle } from 'hooks/index';
+import { getOptionIndx, parseTimeString } from '../../helpers';
 
 import styles from './time-input.module.scss';
 
@@ -21,7 +21,7 @@ interface ITimeInputProps extends IFieldProps {
 
 const keyboardDelay = 40;
 
-const TimeInput: FC<ITimeInputProps> = ({
+const TimeInput = ({
   error,
   timeValue,
   times,
@@ -32,24 +32,23 @@ const TimeInput: FC<ITimeInputProps> = ({
   openOptions,
   closeOptions,
   selectTime,
-  onFocus
-}) => {
-
+  onFocus,
+}: ITimeInputProps) => {
   const inputRef = useRef<HTMLInputElement>();
-  
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { time } = parseTimeString(e.target.value);
     const optionIndx = getOptionIndx(times, time);
 
     setTimeValue(e.target.value);
     setSelectedOptionId(optionIndx);
-  }
+  };
 
   const parseTimeValue = () => {
     const { time } = parseTimeString(timeValue);
     selectTime(time);
     closeOptions();
-  }
+  };
 
   const changeDateByDirection = (direction: 'up' | 'down') => {
     let newIndx: number;
@@ -59,10 +58,11 @@ const TimeInput: FC<ITimeInputProps> = ({
         ? (selectedOptionId + 1) % times.length
         : Math.ceil(selectedOptionId);
     }
-    
+
     if (direction === 'up') {
       if (Number.isInteger(selectedOptionId)) {
-        newIndx = (selectedOptionId - 1) >= 0 ? (selectedOptionId - 1) : times.length - 1;
+        newIndx =
+          selectedOptionId - 1 >= 0 ? selectedOptionId - 1 : times.length - 1;
       } else {
         newIndx = Math.floor(selectedOptionId);
       }
@@ -71,10 +71,10 @@ const TimeInput: FC<ITimeInputProps> = ({
     const time = `${hours}:${mins}`;
     selectTime(time);
     scrollToOption(newIndx);
-  }
+  };
 
   const onKeyDown = useThrottle((e: KeyboardEvent<HTMLInputElement>) => {
-    switch(e.key) {
+    switch (e.key) {
       case 'Enter': {
         inputRef.current.blur();
         break;
@@ -90,7 +90,7 @@ const TimeInput: FC<ITimeInputProps> = ({
         break;
       }
     }
-  }, keyboardDelay)
+  }, keyboardDelay);
 
   return (
     <TextField
@@ -107,6 +107,6 @@ const TimeInput: FC<ITimeInputProps> = ({
       fullWidth
     />
   );
-}
+};
 
 export default TimeInput;

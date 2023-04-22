@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { usePopup } from "hooks/usePopup";
-import Popup from "components/common/popup/Popup";
+import React from 'react';
+import { usePopup } from 'hooks/usePopup';
+import Popup from 'components/common/popup/Popup';
 
-export const PopupProvider: FC = ({ children }) => {
+export const PopupProvider = ({ children }) => {
   const { popupOptions, isOpenPopup } = usePopup();
 
   return (

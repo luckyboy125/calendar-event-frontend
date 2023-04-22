@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { IDirections, IModes } from "types/date";
-import Year from "../year/Year";
+import React from 'react';
+import { IDirections, IModes } from 'types/date';
+import Year from '../year/Year';
 
 import styles from './years.module.scss';
 
@@ -12,24 +12,26 @@ interface YearsProps {
   onClickArrow: (direction: IDirections) => void;
 }
 
-const Years: FC<YearsProps> = ({
+const Years = ({
   selectedYearsInterval,
   selectedYear,
   setSelectedYear,
   setMode,
-  onClickArrow
-}) => {
+  onClickArrow,
+}: YearsProps) => {
   const handleSelectPrevYearsInterval = () => {
     onClickArrow('left');
     setSelectedYear(selectedYearsInterval[0] - 1);
     setMode('monthes');
-  }
+  };
 
   const handleSelectNextYearsInterval = () => {
     onClickArrow('right');
-    setSelectedYear(selectedYearsInterval[selectedYearsInterval.length - 1] + 1);
+    setSelectedYear(
+      selectedYearsInterval[selectedYearsInterval.length - 1] + 1
+    );
     setMode('monthes');
-  }
+  };
 
   return (
     <div className={styles.years__container}>

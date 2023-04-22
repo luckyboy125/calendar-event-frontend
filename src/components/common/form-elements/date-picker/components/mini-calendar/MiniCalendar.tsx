@@ -1,9 +1,16 @@
-import React, { FC } from "react";
-import { IDirections, IModes, IMonth, IMonthDay, IWeekDay, TMonth } from "types/date";
-import Header from "./components/header/Header";
-import Days from "./components/days/Days";
-import Years from "./components/years/Years";
-import Monthes from "./components/monthes/Monthes";
+import React from 'react';
+import {
+  IDirections,
+  IModes,
+  IMonth,
+  IMonthDay,
+  IWeekDay,
+  TMonth,
+} from 'types/date';
+import Header from './components/header/Header';
+import Days from './components/days/Days';
+import Years from './components/years/Years';
+import Monthes from './components/monthes/Monthes';
 
 import styles from './mini-calendar.module.scss';
 
@@ -23,7 +30,7 @@ interface MiniCalendarProps {
   setSelectedYear: (year: number) => void;
 }
 
-const MiniCalendar: FC<MiniCalendarProps> = ({
+const MiniCalendar = ({
   monthesNames,
   selectedYear,
   selectedMonth,
@@ -36,8 +43,8 @@ const MiniCalendar: FC<MiniCalendarProps> = ({
   selectDay,
   setMode,
   setSelectedMonthByIndex,
-  setSelectedYear
-}) => {
+  setSelectedYear,
+}: MiniCalendarProps) => {
   return (
     <div className={styles.mini__calendar}>
       <Header
@@ -56,7 +63,7 @@ const MiniCalendar: FC<MiniCalendarProps> = ({
             selectedMonth={selectedMonth}
             weekDaysNames={weekDaysNames}
             calendarDaysOfMonth={calendarDaysOfMonth}
-            selectedDate={selectedDate}          
+            selectedDate={selectedDate}
           />
         )}
         {mode === 'monthes' && (

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from 'react';
 
 import styles from './select-option.module.scss';
 
@@ -8,25 +8,22 @@ interface ISelectOptionProps {
   onChangeOption: (option: string) => void;
 }
 
-const SelectOption: FC<ISelectOptionProps> = ({
+const SelectOption = ({
   option,
   close,
-  onChangeOption
-}) => {
+  onChangeOption,
+}: ISelectOptionProps) => {
   const onOptionClicked = () => {
     close();
     onChangeOption(option);
   };
 
   return (
-    <li
-      className={styles.option}
-      onClick={onOptionClicked}
-    >
+    <li className={styles.option} onClick={onOptionClicked}>
       <div className={styles.option__name}>{option}</div>
       <div className={styles.option__symbol}>{option.slice(0, 1)}</div>
     </li>
   );
-}
+};
 
 export default SelectOption;

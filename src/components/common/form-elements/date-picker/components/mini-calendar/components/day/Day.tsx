@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { IMonthDay, TMonth } from "types/date";
-import { checkDateIsEqual, checkIsToday } from "utils/date";
-import cn from "classnames";
+import React from 'react';
+import { IMonthDay, TMonth } from 'types/date';
+import { checkDateIsEqual, checkIsToday } from 'utils/date';
+import cn from 'classnames';
 
 import styles from './day.module.scss';
 
@@ -12,7 +12,7 @@ interface DayProps {
   selectedDate: Date;
 }
 
-const Day: FC<DayProps> = ({ day, selectedMonth, selectDay, selectedDate }) => {
+const Day = ({ day, selectedMonth, selectDay, selectedDate }: DayProps) => {
   const isToday = checkIsToday(day.date);
   const isSelectedDay = checkDateIsEqual(day.date, selectedDate);
   const isAdditionalDay = day.monthIndex !== selectedMonth.monthIndex;
@@ -27,12 +27,12 @@ const Day: FC<DayProps> = ({ day, selectedMonth, selectDay, selectedDate }) => {
       className={cn(styles.day, {
         [styles.day_today]: isToday,
         [styles.day_selected]: isSelectedDay,
-        [styles.day_additional]: isAdditionalDay
+        [styles.day_additional]: isAdditionalDay,
       })}
     >
       {day.dayNumber}
     </div>
   );
-}
+};
 
 export default Day;

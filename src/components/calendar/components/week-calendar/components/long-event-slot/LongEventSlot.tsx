@@ -1,10 +1,10 @@
-import React, { FC } from "react";
-import { IEvent } from "types/event";
-import { IMonthDay } from "types/date";
-import cn from "classnames";
-import LongEvent from "components/common/long-event/LongEvent";
-import { useModal } from "hooks/useModal";
-import { getStyledForLongEvent } from "utils/helpers";
+import React from 'react';
+import { IEvent } from 'types/event';
+import { IMonthDay } from 'types/date';
+import cn from 'classnames';
+import LongEvent from 'components/common/long-event/LongEvent';
+import { useModal } from 'hooks/useModal';
+import { getStyledForLongEvent } from 'utils/helpers';
 
 import styles from './long-event-slot.module.scss';
 
@@ -17,32 +17,37 @@ interface ILongEventSlotProps {
   slotHeight?: number;
 }
 
-const LongEventSlot: FC<ILongEventSlotProps> = ({
+const LongEventSlot = ({
   isEventsEmpty,
   dayEvents,
   weekDays,
   day,
   dayEventsPositionY,
-  slotHeight
-}) => {
+  slotHeight,
+}: ILongEventSlotProps) => {
   const { openModalCreate } = useModal();
 
   const handleOpenmodalCreateEvent = () => {
-    openModalCreate({ selectedDate: day.date, type: 'long-event' })
-  }
+    openModalCreate({ selectedDate: day.date, type: 'long-event' });
+  };
 
   const slotStyle = { height: `${slotHeight}px` };
-  
+
   return (
     <div
       className={cn(styles.event__slot, {
-        [styles.event__slot_empty]: isEventsEmpty
+        [styles.event__slot_empty]: isEventsEmpty,
       })}
       style={slotStyle}
       onClick={handleOpenmodalCreateEvent}
     >
       {dayEvents.map((event) => {
-        const { width, isShowEvent, isMovingFromPrev, isMovingToNext } = getStyledForLongEvent(weekDays, day, event);
+        const {
+          width,
+          isShowEvent,
+          isMovingFromPrev,
+          isMovingToNext,
+        } = getStyledForLongEvent(weekDays, day, event);
 
         const top = dayEventsPositionY.indexOf(event.id) * 24;
 
@@ -57,10 +62,10 @@ const LongEventSlot: FC<ILongEventSlotProps> = ({
             isMovingToNext={isMovingToNext}
             isMovingFromPrev={isMovingFromPrev}
           />
-        )
+        );
       })}
     </div>
   );
-}
+};
 
 export default LongEventSlot;

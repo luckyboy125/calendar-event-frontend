@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useClickOutside } from 'hooks/index';
 import { generateTimesForDay } from 'utils/date';
 import { getOptionIndx, parseTimeString } from './helpers';
@@ -17,7 +17,7 @@ interface TimePickerProps {
   selectTime: (time: string) => void;
 }
 
-const TimePicker: FC<TimePickerProps> = ({
+const TimePicker = ({
   selectedTime,
   timeFrom,
   error,
@@ -25,43 +25,57 @@ const TimePicker: FC<TimePickerProps> = ({
   isToday = false,
   locale = 'default',
   selectTime,
-}) => {
+}: TimePickerProps) => {
   const [timeValue, setTimeValue] = useState(selectedTime);
   const [isOpen, setIsOpen] = useState(false);
 
-  const times = useMemo(() => (
-    generateTimesForDay((isFullDay || !isToday) ? '00:00' : timeFrom, isFullDay)
-  ), [timeFrom, isFullDay, isToday]);
+  const times = useMemo(
+    () =>
+      generateTimesForDay(
+        isFullDay || !isToday ? '00:00' : timeFrom,
+        isFullDay
+      ),
+    [timeFrom, isFullDay, isToday]
+  );
 
-  const [selectedOptionId, setSelectedOptionId] = useState(getOptionIndx(times, timeValue));
+  const [selectedOptionId, setSelectedOptionId] = useState(
+    getOptionIndx(times, timeValue)
+  );
 
   const timePickerRef = useRef<HTMLDivElement>();
   const optionContainerRef = useRef<HTMLInputElement>();
-  
+
   const openOptions = () => setIsOpen(true);
   const closeOptions = () => setIsOpen(false);
-  
-  const onSelectTime = (hours: string, mins: string, withClose: boolean = false) => {
+
+  const onSelectTime = (
+    hours: string,
+    mins: string,
+    withClose: boolean = false
+  ) => {
     const time = `${hours}:${mins}`;
     setTimeValue(time);
     selectTime(time);
     withClose && closeOptions();
-  }
+  };
 
   const scrollToOption = (optiondId: number) => {
     if (!Number.isInteger(optiondId) || optiondId < 0) {
       return;
     }
-    const heightOption = optionContainerRef.current.children[0].getBoundingClientRect().height;
-    const heightContainer = optionContainerRef.current.getBoundingClientRect().height;
-    const positionY = heightOption * optiondId - (heightContainer / 2 - heightOption / 2);
+    const heightOption = optionContainerRef.current.children[0].getBoundingClientRect()
+      .height;
+    const heightContainer = optionContainerRef.current.getBoundingClientRect()
+      .height;
+    const positionY =
+      heightOption * optiondId - (heightContainer / 2 - heightOption / 2);
     optionContainerRef.current.scrollTo(0, positionY);
-  }
+  };
 
   useClickOutside(timePickerRef, closeOptions);
 
   useEffect(() => {
-    if(isOpen) {
+    if (isOpen) {
       scrollToOption(selectedOptionId);
     }
   }, [isOpen]);
@@ -75,10 +89,7 @@ const TimePicker: FC<TimePickerProps> = ({
   }, [selectedTime]);
 
   return (
-    <div
-      className={styles.time__picker}
-      ref={timePickerRef}
-    >
+    <div className={styles.time__picker} ref={timePickerRef}>
       <TimeInput
         timeValue={timeValue}
         times={times}
@@ -120,6 +131,6 @@ const TimePicker: FC<TimePickerProps> = ({
       )}
     </div>
   );
-}
+};
 
 export default TimePicker;

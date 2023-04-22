@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Hour from '../hour/Hour';
 import { IEvent } from 'types/event';
 import { IMonthDay } from 'types/date';
@@ -12,21 +12,18 @@ interface IDayProps {
   dayData: IMonthDay;
 }
 
-const Day: FC<IDayProps> = ({
+const Day = ({
   dayEvents,
   dayData,
   prevDayEvents,
-  nextDayEvents
-}) => {
+  nextDayEvents,
+}: IDayProps) => {
   const hours = Array(24)
     .fill(0)
     .map((_, index) => index);
 
   return (
-    <div
-      className={styles.day}
-      data-day={dayData.dayNumber}
-    >
+    <div className={styles.day} data-day={dayData.dayNumber}>
       {hours.map((hour) => {
         //getting all events from the day we will render
         const currentHourEvents = dayEvents?.filter(
@@ -34,21 +31,17 @@ const Day: FC<IDayProps> = ({
         );
 
         const eventsFromPrevDay = prevDayEvents.filter((_) => 0 === hour);
-        
+
         const eventsToNextDay = nextDayEvents.filter(
           (event) => new Date(event.start).getHours() === hour
         );
 
-        const allDayEvents = [
-          ...prevDayEvents,
-          ...dayEvents,
-          ...nextDayEvents
-        ] 
+        const allDayEvents = [...prevDayEvents, ...dayEvents, ...nextDayEvents];
 
         const hoursEvents = [
           ...currentHourEvents,
           ...eventsFromPrevDay,
-          ...eventsToNextDay
+          ...eventsToNextDay,
         ];
 
         return (

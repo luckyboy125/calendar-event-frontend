@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Day from '../day/Day';
 import { IEvent } from 'types/event';
 import { IMonthDay } from 'types/date';
@@ -11,7 +11,7 @@ interface IWeekProps {
   weekDays: IMonthDay[];
 }
 
-const Week: FC<IWeekProps> = ({ events, weekDays }) => {
+const Week = ({ events, weekDays }: IWeekProps) => {
   return (
     <div className={styles.calendar__week}>
       {weekDays.map((day) => {
@@ -21,25 +21,31 @@ const Week: FC<IWeekProps> = ({ events, weekDays }) => {
         const dayEvents = events?.filter((event) => {
           const eventStartDate = new Date(event.start);
           const eventEndDate = new Date(event.end);
-          
-          return eventStartDate.getTime() > day.date.getTime() &&
+
+          return (
+            eventStartDate.getTime() > day.date.getTime() &&
             eventEndDate.getTime() < nextDay.getTime()
+          );
         });
 
         const prevDayEvents = events.filter((event) => {
           const eventStartDate = new Date(event.start);
           const eventEndDate = new Date(event.end);
 
-          return day.date.getTime() <= eventEndDate.getTime() &&
-            day.date.getTime() > eventStartDate.getTime();
+          return (
+            day.date.getTime() <= eventEndDate.getTime() &&
+            day.date.getTime() > eventStartDate.getTime()
+          );
         });
 
         const nextDayEvents = events.filter((event) => {
           const eventStartDate = new Date(event.start);
           const eventEndDate = new Date(event.end);
 
-          return nextDay.getTime() > eventStartDate.getTime() &&
-            nextDay.getTime() <= eventEndDate.getTime();
+          return (
+            nextDay.getTime() > eventStartDate.getTime() &&
+            nextDay.getTime() <= eventEndDate.getTime()
+          );
         });
 
         return (

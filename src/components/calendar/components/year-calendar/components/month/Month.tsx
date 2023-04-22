@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { IMonth, IMonthDay, IWeekDay, TDate } from 'types/date';
 import Day from '../day/Day';
 
@@ -13,27 +13,24 @@ interface IMonthProps {
   onChangeState: (date: Date) => void;
 }
 
-const Month: FC<IMonthProps> = ({
+const Month = ({
   calendarDaysOfMonth,
   month,
   weekDaysNames,
   monthIndex,
   selectedDay,
-  onChangeState
-}) => {
+  onChangeState,
+}: IMonthProps) => {
   return (
     <div className={styles.month}>
       <div className={styles.month__title}>
-        <span className={styles.month__title__name}>
-        {month.month} 
-        </span>
+        <span className={styles.month__title__name}>{month.month}</span>
       </div>
       <div className={styles.month__header}>
-        {weekDaysNames.map(weekDay => (
-          <div
-            key={weekDay.day}
-            className={styles.month__header__day}
-          >{weekDay.dayShort}</div>
+        {weekDaysNames.map((weekDay) => (
+          <div key={weekDay.day} className={styles.month__header__day}>
+            {weekDay.dayShort}
+          </div>
         ))}
       </div>
       <div className={styles.month__body}>
@@ -49,6 +46,6 @@ const Month: FC<IMonthProps> = ({
       </div>
     </div>
   );
-}
+};
 
 export default Month;

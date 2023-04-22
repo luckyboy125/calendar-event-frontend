@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { IMonth, IMonthDay, IWeekDay, TDate, TMonth } from 'types/date';
 import Month from './components/month/Month';
 
@@ -13,17 +13,16 @@ interface IYearCalendarProps {
   onChangeState: (date: Date) => void;
 }
 
-const YearCalendar: FC<IYearCalendarProps> = ({
+const YearCalendar = ({
   calendarDaysOfYear,
   selectedMonth,
   monthesNames,
   weekDaysNames,
   selectedDay,
-  onChangeState
-}) => {
-
+  onChangeState,
+}: IYearCalendarProps) => {
   return (
-    <div className="calendar__body">
+    <div className='calendar__body'>
       <div className={styles.calendar__year__container}>
         {calendarDaysOfYear.map((calendarDaysOfMonth, i) => (
           <Month
@@ -39,6 +38,6 @@ const YearCalendar: FC<IYearCalendarProps> = ({
       </div>
     </div>
   );
-}
+};
 
 export default YearCalendar;

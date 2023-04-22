@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react';
+import React from 'react';
 import { IMonthDay, TDate } from 'types/date';
 import { checkDateIsEqual, checkIsToday } from 'utils/date';
 import { useModal } from 'hooks/useModal';
@@ -13,31 +13,24 @@ interface IDayProps {
   onChangeState: (date: Date) => void;
 }
 
-const Day: FC<IDayProps> = ({
-  day,
-  monthIndex,
-  selectedDay,
-  onChangeState
-}) => {
+const Day = ({ day, monthIndex, selectedDay, onChangeState }: IDayProps) => {
   const { openModalDayInfo } = useModal();
   const handleSelectDay = () => onChangeState(day.date);
   const isAdditionalDay = day.monthIndex !== monthIndex;
 
-  const handleOpenModalDayInfo = (e: MouseEvent<HTMLDivElement>) => {
+  const handleOpenModalDayInfo = (e: any) => {
     e.stopPropagation();
     openModalDayInfo(day.date);
-  }
+  };
 
   return (
-    <div
-      className={styles.day}
-      onClick={handleOpenModalDayInfo}
-    >
+    <div className={styles.day} onClick={handleOpenModalDayInfo}>
       <div
         className={cn(styles.day__label, {
           [styles.day__label_active]: checkIsToday(day.date),
           [styles.day__label_additional]: isAdditionalDay,
-          [styles.day__label_selected]: !isAdditionalDay && checkDateIsEqual(day.date, selectedDay.date),
+          [styles.day__label_selected]:
+            !isAdditionalDay && checkDateIsEqual(day.date, selectedDay.date),
         })}
         onClick={handleSelectDay}
       >
@@ -45,6 +38,6 @@ const Day: FC<IDayProps> = ({
       </div>
     </div>
   );
-}
+};
 
 export default Day;

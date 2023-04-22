@@ -1,15 +1,11 @@
-import React, { FC } from "react";
-import { getMapEventValues } from "../helpers";
-import ModalFormEvent from "../modal-form-event/ModalFormEvent";
-import { TPartialEvent } from "types/event";
-import { useActions, useModal } from "hooks/index";
-import { IModalEditEventOptions } from "store/modals/types";
+import React from 'react';
+import { getMapEventValues } from '../helpers';
+import ModalFormEvent from '../modal-form-event/ModalFormEvent';
+import { TPartialEvent } from 'types/event';
+import { useActions, useModal } from 'hooks/index';
+import { IModalEditEventOptions } from 'store/modals/types';
 
-
-const ModalEditEvent: FC<IModalEditEventOptions> = ({
-  eventData,
-  eventId
-}) => {
+const ModalEditEvent = ({ eventData, eventId }: IModalEditEventOptions) => {
   const { updateEvent } = useActions();
   const { closeModalEdit } = useModal();
   const startDate = new Date(eventData.start);
@@ -21,20 +17,21 @@ const ModalEditEvent: FC<IModalEditEventOptions> = ({
     startDate,
     endDate,
     type: eventData.type,
-    color: eventData.color
+    color: eventData.color,
   });
 
-  const onUpdateEvent = (event: TPartialEvent) => updateEvent({ eventId: eventId, event });
+  const onUpdateEvent = (event: TPartialEvent) =>
+    updateEvent({ eventId: eventId, event });
 
   return (
     <ModalFormEvent
-      textSendButton="Edit"
-      textSendingBtn="Editing"
+      textSendButton='Edit'
+      textSendingBtn='Editing'
       defaultEventValues={defaultEventValues}
       handlerSubmit={onUpdateEvent}
       closeModal={closeModalEdit}
     />
-  )
-}
+  );
+};
 
 export default ModalEditEvent;

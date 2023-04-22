@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from 'react';
 
 import styles from './color-option.module.scss';
 
@@ -8,11 +8,11 @@ interface IColorOptionProps {
   onChangeColor: (color: string) => void;
 }
 
-const ColorOption: FC<IColorOptionProps> = ({
+const ColorOption = ({
   color,
   selectedColor,
   onChangeColor,
-}) => {
+}: IColorOptionProps) => {
   const handleChangeColor = () => onChangeColor(color);
 
   return (
@@ -21,11 +21,9 @@ const ColorOption: FC<IColorOptionProps> = ({
       onClick={handleChangeColor}
       style={{ background: color }}
     >
-      {selectedColor === color && (
-        <i className="fas fa-check"></i>
-      )}
+      {selectedColor === color && <i className='fas fa-check'></i>}
     </div>
   );
-}
+};
 
 export default ColorOption;

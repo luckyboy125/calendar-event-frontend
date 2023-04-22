@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import Day from "../day/Day";
-import { IMonthDay, IWeekDay, TMonth } from "types/date";
+import React from 'react';
+import Day from '../day/Day';
+import { IMonthDay, IWeekDay, TMonth } from 'types/date';
 
 import styles from './days.module.scss';
 
@@ -12,13 +12,13 @@ interface DaysProps {
   selectedDate: Date;
 }
 
-const Days: FC<DaysProps> = ({
+const Days = ({
   selectDay,
   selectedMonth,
   weekDaysNames,
   calendarDaysOfMonth,
-  selectedDate
-}) => {
+  selectedDate,
+}: DaysProps) => {
   return (
     <>
       <div className={styles.week__names}>
@@ -27,7 +27,7 @@ const Days: FC<DaysProps> = ({
         ))}
       </div>
       <div className={styles.days}>
-        {calendarDaysOfMonth.map((day) => (  
+        {calendarDaysOfMonth.map((day) => (
           <Day
             key={`${day.year}-${day.monthIndex}-${day.dayNumber}`}
             day={day}
