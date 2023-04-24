@@ -50,7 +50,7 @@ const ModalFormEvent = ({
     rules: createEventSchema,
   });
 
-  const isValid = Object.keys(errors).length === 0;
+  const isValid = Object.keys(errors)?.length === 0;
 
   const onSelectStartDate = (date: Date) => {
     if (values.isLongEvent) {

@@ -1,6 +1,6 @@
 {
-  "name": "react-calendar",
-  "version": "1.0.0",
+  "name": "calendar-event-frontend",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode=development --devtool source-map",

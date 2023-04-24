@@ -4,6 +4,7 @@ import WeekCalendar from './components/week-calendar/WeekCalendar';
 import Header from 'components/common/header/Header';
 import YearCalendar from './components/year-calendar/YearCalendar';
 import MonthCalendar from './components/month-calendar/MonthCalendar';
+import DayCalendar from './components/day-calendar/DayCalendar';
 
 import './calendar.scss';
 
@@ -48,6 +49,8 @@ const Calendar = ({}: ICalendarProps) => {
             weekDaysNames={state.weekDaysNames}
           />
         )}
+
+        {state.mode === 'day' && <DayCalendar day={state.selectedDay} />}
       </section>
     </>
   );

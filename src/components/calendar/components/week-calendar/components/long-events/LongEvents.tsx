@@ -12,7 +12,7 @@ interface ILongEventsProps {
 }
 
 const LongEvents = ({ weekDays, events }: ILongEventsProps) => {
-  const isEventsEmpty = events.length === 0;
+  const isEventsEmpty = events?.length === 0;
 
   const { sortedWeekEvents, maxEventsInWeek } = getSortedWeekEvents(
     weekDays,

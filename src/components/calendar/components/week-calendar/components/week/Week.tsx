@@ -28,7 +28,7 @@ const Week = ({ events, weekDays }: IWeekProps) => {
           );
         });
 
-        const prevDayEvents = events.filter((event) => {
+        const prevDayEvents = events?.filter((event) => {
           const eventStartDate = new Date(event.start);
           const eventEndDate = new Date(event.end);
 
@@ -38,7 +38,7 @@ const Week = ({ events, weekDays }: IWeekProps) => {
           );
         });
 
-        const nextDayEvents = events.filter((event) => {
+        const nextDayEvents = events?.filter((event) => {
           const eventStartDate = new Date(event.start);
           const eventEndDate = new Date(event.end);
 

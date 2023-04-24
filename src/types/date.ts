@@ -1,4 +1,4 @@
-import { createDate, createMonth, createWeek, getDay } from "utils/date";
+import { createDate, createMonth, createWeek, getDay } from 'utils/date';
 
 export type TDate = ReturnType<typeof createDate>;
 export type TWeek = ReturnType<typeof createWeek>;
@@ -18,6 +18,6 @@ export interface IMonth {
 
 export type IMonthDay = ReturnType<typeof getDay>;
 
-export type IModes = "week" | "month" | "monthes" | "year" | "years";
+export type IModes = 'day' | 'week' | 'month' | 'monthes' | 'year' | 'years';
 
-export type IDirections = "left" | "right" | "today";
+export type IDirections = 'left' | 'right' | 'today';

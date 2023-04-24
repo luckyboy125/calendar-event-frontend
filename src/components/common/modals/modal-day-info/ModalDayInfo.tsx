@@ -33,7 +33,7 @@ const ModalDayInfo = ({ selectedDate }: IModalDayInfoProps) => {
   const daySortedLongEvents = getSortedEvents(dayLongEvents);
   const daySortedShortEvents = getSortedEvents(dayShortEvents);
 
-  const modalContentHeight = dayEvents.length * 24;
+  const modalContentHeight = dayEvents?.length * 24;
   const modalContentStyle = {
     height: modalContentHeight > 0 ? modalContentHeight : 'auto',
   };
@@ -58,7 +58,7 @@ const ModalDayInfo = ({ selectedDate }: IModalDayInfoProps) => {
         </div>
 
         <div className={styles.modal__content} style={modalContentStyle}>
-          {dayEvents.length === 0 && (
+          {dayEvents?.length === 0 && (
             <div className={styles.modal__empty__events}>
               There are no events scheduled on this day.
             </div>
@@ -85,7 +85,7 @@ const ModalDayInfo = ({ selectedDate }: IModalDayInfoProps) => {
             );
           })}
           {daySortedShortEvents.map((event, indx) => {
-            const top = (daySortedLongEvents.length + indx) * 24;
+            const top = (daySortedLongEvents?.length + indx) * 24;
 
             return <ShortEvent key={event.id} event={event} top={top} />;
           })}

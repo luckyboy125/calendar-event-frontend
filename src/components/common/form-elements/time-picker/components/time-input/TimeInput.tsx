@@ -55,14 +55,14 @@ const TimeInput = ({
 
     if (direction === 'down') {
       newIndx = Number.isInteger(selectedOptionId)
-        ? (selectedOptionId + 1) % times.length
+        ? (selectedOptionId + 1) % times?.length
         : Math.ceil(selectedOptionId);
     }
 
     if (direction === 'up') {
       if (Number.isInteger(selectedOptionId)) {
         newIndx =
-          selectedOptionId - 1 >= 0 ? selectedOptionId - 1 : times.length - 1;
+          selectedOptionId - 1 >= 0 ? selectedOptionId - 1 : times?.length - 1;
       } else {
         newIndx = Math.floor(selectedOptionId);
       }

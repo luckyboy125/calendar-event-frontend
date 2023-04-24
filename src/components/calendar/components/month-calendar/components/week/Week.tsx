@@ -35,7 +35,7 @@ const Week = ({
       {weekDays.map((day, indx) => {
         const startDateOfDay = day.date;
 
-        const dayShortEvents = shortEvents.filter((event) => {
+        const dayShortEvents = shortEvents?.filter((event) => {
           const startDateEvent = new Date(event.start);
           return checkDateIsEqual(startDateEvent, startDateOfDay);
         });

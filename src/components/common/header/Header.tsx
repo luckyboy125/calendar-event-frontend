@@ -15,7 +15,7 @@ interface IHeaderProps {
   selectedDay: TDate;
 }
 
-const modes = ['week', 'month', 'year'];
+const modes = ['day', 'week', 'month', 'year'];
 
 const Header = ({
   onClickArrow,

@@ -46,7 +46,7 @@ const Header = ({
       {mode === 'years' && (
         <div>
           {selectedYearsInterval[0]} -{' '}
-          {selectedYearsInterval[selectedYearsInterval.length - 1]}
+          {selectedYearsInterval[selectedYearsInterval?.length - 1]}
         </div>
       )}
 

@@ -18,7 +18,7 @@ const Month = ({
   shortEvents,
   longEvents,
 }: IMonthProps) => {
-  const countRows = calendarDaysOfMonth.length / 7;
+  const countRows = calendarDaysOfMonth?.length / 7;
 
   const weeksDays = Array.from({ length: countRows }).map((_, i) =>
     calendarDaysOfMonth.slice(i * 7, (i + 1) * 7)

@@ -28,7 +28,7 @@ const Years = ({
   const handleSelectNextYearsInterval = () => {
     onClickArrow('right');
     setSelectedYear(
-      selectedYearsInterval[selectedYearsInterval.length - 1] + 1
+      selectedYearsInterval[selectedYearsInterval?.length - 1] + 1
     );
     setMode('monthes');
   };
@@ -54,7 +54,7 @@ const Years = ({
         className={styles.year_additional}
         onClick={handleSelectNextYearsInterval}
       >
-        {selectedYearsInterval[selectedYearsInterval.length - 1] + 1}
+        {selectedYearsInterval[selectedYearsInterval?.length - 1] + 1}
       </div>
     </div>
   );

@@ -39,10 +39,10 @@ const Day = ({
 
   const maxCountEventsInDay = countRows === 6 ? 3 : 4;
 
-  const countShortEvents = maxCountEventsInDay - dayEventsPositionY.length;
+  const countShortEvents = maxCountEventsInDay - dayEventsPositionY?.length;
 
   const isShowMoreBtn =
-    maxCountEventsInDay < dayEventsPositionY.length + dayShortEvents.length;
+    maxCountEventsInDay < dayEventsPositionY?.length + dayShortEvents?.length;
 
   const maxCountLongEvents = isShowMoreBtn
     ? maxCountEventsInDay - 1
@@ -53,7 +53,7 @@ const Day = ({
     .reduce((total, _) => total + 1, 0);
 
   const restCountEvents =
-    dayShortEvents.length + dayLongEvents.length - countLongEvents;
+    dayShortEvents?.length + dayLongEvents?.length - countLongEvents;
 
   const styleForMoreBtn = { top: (maxCountEventsInDay - 1) * 24 };
 
@@ -116,7 +116,7 @@ const Day = ({
           })}
         {!isShowMoreBtn &&
           dayShortEvents.slice(0, countShortEvents).map((event, indx) => {
-            const top = (dayEventsPositionY.length + indx) * 24;
+            const top = (dayEventsPositionY?.length + indx) * 24;
             return <ShortEvent key={event.id} event={event} top={top} />;
           })}
         {isShowMoreBtn && (
